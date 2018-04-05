@@ -1,10 +1,11 @@
 {
   "name": "node-rest-frameworks",
   "version": "1.0.0",
-  "description":
-    "A repo for playing with several different Node.js based frameworks -- for the purpose of (potentially) finding a replacement for (just) Express.js.",
+  "description": "A repo for playing with several different Node.js based frameworks -- for the purpose of (potentially) finding a replacement for (just) Express.js.",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "restify": "^7.1.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.2",
