@@ -1,7 +1,8 @@
 {
-  "name": "rehinking-asynchronous-programming",
+  "name": "node-rest-frameworks",
   "version": "1.0.0",
-  "description": "A repo for notes and examples from the Rethinking Asynchronous Programming course on PluralSight by Kyle Simpson.",
+  "description":
+    "A repo for playing with several different Node.js based frameworks -- for the purpose of (potentially) finding a replacement for (just) Express.js.",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
@@ -25,12 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kevinjdonohue/RethinkingAsynchronousProgramming.git"
+    "url": "git+https://github.com/kevinjdonohue/NodeRESTFrameworks.git"
   },
   "author": "Kevin J Donohue",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kevinjdonohue/RethinkingAsynchronousProgramming/issues"
+    "url": "https://github.com/kevinjdonohue/NodeRESTFrameworks/issues"
   },
-  "homepage": "https://github.com/kevinjdonohue/RethinkingAsynchronousProgramming#readme"
+  "homepage": "https://github.com/kevinjdonohue/NodeRESTFrameworks#readme"
 }
