@@ -1,32 +1,43 @@
 /* eslint-disable no-console */
 
-const RestifyErrors = require('restify-errors');
-const RestifyServer = require('./server');
+const server = require('./server');
+const errors = require('restify-errors');
 
 /* GETs */
 
-const handleErrorRequest = (request, response, next) => {
-  console.log('in handleErrorRequest');
-  return next();
-};
+// const handleErrorRequest = (request, response, next) => {
+//   console.log('in handleErrorRequest');
+//   return next();
+// };
 
 const handleErrorResponse = (request, response, next) => {
   console.log('in handleErrorResponse');
   return next(new Error('boom!'));
 };
 
-RestifyServer.get('/error', handleErrorRequest, handleErrorResponse);
+server.get('/error', handleErrorResponse);
 
 const handleNotFoundErrorResponse = (request, response, next) => {
   console.log('in handleNotFoundErrorResponse');
-  return next(new RestifyErrors.NotFoundError('not found!'));
+  return next(new errors.NotFoundError('not found!'));
 };
 
-RestifyServer.get('/notfounderror', handleErrorRequest, handleNotFoundErrorResponse);
+server.get('/notfounderror', handleNotFoundErrorResponse);
+
+const handleISEResponse = (request, response, next) => {
+  console.log('in handleISEResponse');
+  return next(new errors.InternalServerError('on noes!'));
+};
+
+server.get('/internalservererror', handleISEResponse);
+
+const handleInvalidArgumentError = (request, response, next) => next(new errors.InvalidArgumentError('Invalid Arg Error'));
+
+server.get('/invalidargumenterror', handleInvalidArgumentError);
 
 const nameHandler = (request, response, next) => {
   if (!request.params.name) {
-    response.send(`Please enter your name!  ex. ${RestifyServer.url}/hello/kevin`);
+    response.send(`Please enter your name!  ex. ${server.url}/hello/kevin`);
     // sending false to next stops processing the request
     return next(false);
   }
@@ -40,25 +51,29 @@ const additionalNameHandler = (request, response, next) => {
   return next();
 };
 
-RestifyServer.get('/hello/:name', nameHandler, additionalNameHandler);
+server.get('/hello/:name', nameHandler, additionalNameHandler);
 
-const PATH = '/versionedhello/:name';
-const VERSION1 = '1.0.0';
-const VERSION2 = '2.0.0';
+/* VERSIONED ROUTES */
 
-const sendV1 = (request, response, next) => {
-  response.send(`versionedhello: ${request.params.name}`);
-  return next();
-};
+// const PATH = '/versionedhello/:name';
+// const VERSION1 = '1.0.0';
+// const VERSION2 = '2.0.0';
 
-const sendV2 = (request, response, next) => {
-  response.send({ hello: request.params.name });
-  return next();
-};
+// const sendV1 = (request, response, next) => {
+//   response.send(`versionedhello: ${request.params.name}`);
+//   return next();
+// };
 
-RestifyServer.get({ path: PATH, version: VERSION1 }, sendV1);
+// const sendV2 = (request, response, next) => {
+//   response.send({ versionedhello: request.params.name });
+//   return next();
+// };
 
-RestifyServer.get({ path: PATH, version: VERSION2 }, sendV2);
+// server.get({ path: PATH, version: VERSION1 }, sendV1);
+
+// server.get({ path: PATH, version: VERSION2 }, sendV2);
+
+// server.get({ path: PATH, version: [VERSION1, VERSION2] }, sendV2);
 
 // TODO:  next.ifError(err) -- how do you use this?
 
@@ -74,7 +89,7 @@ const handlePostResponse = (request, response, next) => {
   return next();
 };
 
-RestifyServer.post('/foo', handlePostRequest, handlePostResponse);
+server.post('/foo', handlePostRequest, handlePostResponse);
 
 const handlePut = (request, response, next) => {
   console.log('in handlePut');
@@ -84,7 +99,7 @@ const handlePut = (request, response, next) => {
 
 /* PUTs */
 
-RestifyServer.put('/put', handlePut);
+server.put('/put', handlePut);
 
 /* DELs */
 
@@ -94,4 +109,4 @@ const handleDelete = (request, response, next) => {
   return next();
 };
 
-RestifyServer.del('/delete', handleDelete);
+server.del('/delete', handleDelete);
