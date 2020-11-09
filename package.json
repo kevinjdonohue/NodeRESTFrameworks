@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "bunyan": "^1.8.12",
-    "restify": "^7.1.0",
+    "restify": "^8.0.0",
     "restify-errors": "^6.0.0"
   },
   "devDependencies": {
